@@ -8,7 +8,18 @@ namespace UltimateQAAutomation
 	public class UltimateQA
 	{
 		IWebDriver driver;
+
 		const string ultimateQAURL = "https://ultimateqa.com/automation/";
+
+		/// <summary>
+		/// Sets up Chrome browser
+		/// </summary>
+		private void InitializeChromeBrowser()
+		{
+			driver = new ChromeDriver();
+			driver.Manage().Window.Maximize();
+			driver.Navigate().GoToUrl(ultimateQAURL);
+		}
 
 		/// <summary>
 		/// Verifies that a user can navigate to the Ultimate QA website
@@ -16,13 +27,28 @@ namespace UltimateQAAutomation
 		[Fact]
 		public void CanNavigateToUltimateQA()
 		{
-			driver = new ChromeDriver();
-			driver.Manage().Window.Maximize();
-			driver.Navigate().GoToUrl(ultimateQAURL);
+			InitializeChromeBrowser();
 
 			Assert.Equal(ultimateQAURL, driver.Url);
 
-			driver.Close();
+			driver.Quit();
+		}
+
+		/// <summary>
+		/// Verifies that a user can navigate to the first hyperlink on the homepage
+		/// </summary>
+		[Fact]
+		public void CanNavigateToBigPageWithManyElements()
+		{
+			InitializeChromeBrowser();
+
+			driver.FindElement(By.PartialLinkText("Big page with ")).Click();
+
+			string expected = "https://ultimateqa.com/complicated-page";
+
+			Assert.Equal(expected, driver.Url);
+
+			driver.Quit();
 		}
 	}
 }
