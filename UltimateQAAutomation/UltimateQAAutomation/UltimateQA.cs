@@ -68,6 +68,23 @@ namespace UltimateQAAutomation
 			driver.Quit();
 		}
 
+		/// <summary>
+		/// Verifies that a user can navigate to the fake price page
+		/// </summary>
+		[Fact]
+		public void CanNavigateToFakePricePage()
+		{
+			InitializeChromeBrowser();
+
+			driver.FindElement(By.PartialLinkText("Fake Pricing ")).Click();
+
+			string expected = "https://ultimateqa.com/automation/fake-pricing-page/";
+
+			Assert.Equal(expected, driver.Url);
+
+			driver.Quit();
+		}
+
 		///// <summary>
 		///// 
 		///// </summary>
