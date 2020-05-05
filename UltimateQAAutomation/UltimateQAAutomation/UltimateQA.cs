@@ -50,5 +50,33 @@ namespace UltimateQAAutomation
 
 			driver.Quit();
 		}
+
+		/// <summary>
+		/// Verifies that a user can navigate to the fake pricing page
+		/// </summary>
+		[Fact]
+		public void CanNavigateToFakeLandingPage()
+		{
+			InitializeChromeBrowser();
+
+			driver.FindElement(By.PartialLinkText("Fake Landing ")).Click();
+
+			string expected = "https://ultimateqa.com/fake-landing-page";
+
+			Assert.Equal(expected, driver.Url);
+
+			driver.Quit();
+		}
+
+		///// <summary>
+		///// 
+		///// </summary>
+		//[Fact]
+		//public void VerifyNumberOfButtons()
+		//{
+		//	InitializeChromeBrowser();
+
+		//	driver.Quit();
+		//}
 	}
 }
