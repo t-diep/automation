@@ -85,6 +85,23 @@ namespace UltimateQAAutomation
 			driver.Quit();
 		}
 
+		/// <summary>
+		/// Verifies that a user can navigate to the fill out forms page
+		/// </summary>
+		[Fact]
+		public void CanNavigateToFillOutFormsPage()
+		{
+			InitializeChromeBrowser();
+
+			driver.FindElement(By.PartialLinkText("Fill out ")).Click();
+
+			string expected = "https://ultimateqa.com/filling-out-forms/";
+
+			Assert.Equal(expected, driver.Url);
+
+			driver.Quit();
+		}
+
 		///// <summary>
 		///// 
 		///// </summary>
