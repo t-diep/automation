@@ -119,6 +119,40 @@ namespace UltimateQAAutomation
 			driver.Quit();
 		}
 
+		/// <summary>
+		/// Verifies that a user can navigate to the login automation page
+		/// </summary>
+		[Fact]
+		public void CanNavigateToLoginAutomationPage()
+		{
+			InitializeChromeBrowser();
+
+			driver.FindElement(By.PartialLinkText("Login ")).Click();
+
+			string expected = "https://courses.ultimateqa.com/users/sign_in";
+
+			Assert.Equal(expected, driver.Url);
+
+			driver.Quit();
+		}
+
+		/// <summary>
+		/// Verifies that a user can navigate to the interactions with simple elements page
+		/// </summary>
+		[Fact]
+		public void CanNavigateToInteractionsWithSimpleElementsPage()
+		{
+			InitializeChromeBrowser();
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+
+			string expected = "https://ultimateqa.com/simple-html-elements-for-automation/";
+
+			Assert.Equal(expected, driver.Url);
+
+			driver.Quit();
+		}
+
 		///// <summary>
 		///// 
 		///// </summary>
