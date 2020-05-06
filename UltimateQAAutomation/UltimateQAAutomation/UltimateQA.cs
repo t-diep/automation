@@ -102,6 +102,23 @@ namespace UltimateQAAutomation
 			driver.Quit();
 		}
 
+		/// <summary>
+		/// Verifies that a user can navigate to the automation tutorial page
+		/// </summary>
+		[Fact]
+		public void CanNavigateToAutomationTutorialPage()
+		{
+			InitializeChromeBrowser();
+
+			driver.FindElement(By.PartialLinkText("Learn ")).Click();
+
+			string expected = "https://ultimateqa.com/sample-application-lifecycle-sprint-1/";
+
+			Assert.Equal(expected, driver.Url);
+
+			driver.Quit();
+		}
+
 		///// <summary>
 		///// 
 		///// </summary>
