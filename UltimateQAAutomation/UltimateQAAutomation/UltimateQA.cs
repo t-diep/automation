@@ -213,6 +213,48 @@ namespace UltimateQAAutomation
 			driver.Quit();
 		}
 
+		/// <summary>
+		/// Verifies that a user can click on a button using its class name
+		/// </summary>
+		[Fact]
+		public void CanClickOnButtonUsingClassName()
+		{
+			InitializeChromeBrowser();
+
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+			driver.FindElement(By.ClassName("buttonClass")).Click();
+
+			string expected = "Button success";
+
+			Assert.True(driver.FindElement(By.CssSelector("h1")).Displayed);
+			Assert.Equal(expected, driver.FindElement(By.CssSelector("h1")).Text);
+
+			driver.Quit();
+		}
+
+		/// <summary>
+		/// Verifies that a user can click on a button using its name
+		/// </summary>
+		[Fact]
+		public void CanClickButtonUsingName()
+		{
+			InitializeChromeBrowser();
+
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+			driver.FindElement(By.Name("button1")).Click();
+
+			string expected = "Button success";
+
+			Assert.True(driver.FindElement(By.CssSelector("h1")).Displayed);
+			Assert.Equal(expected, driver.FindElement(By.CssSelector("h1")).Text);
+
+			driver.Quit();
+		}
+
 		///// <summary>
 		///// 
 		///// </summary>
