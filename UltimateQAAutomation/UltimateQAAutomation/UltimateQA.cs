@@ -153,6 +153,66 @@ namespace UltimateQAAutomation
 			driver.Quit();
 		}
 
+		/// <summary>
+		/// Verifies that a user can click on the Click Me button
+		/// </summary>
+		[Fact]
+		public void CanClickOnClickMeButton()
+		{
+			InitializeChromeBrowser();
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+			driver.FindElement(By.XPath("//button[text()='Click Me!']")).Click();
+
+			string expected = "https://ultimateqa.com/?";
+
+			Assert.Equal(expected, driver.Url);
+
+			driver.Quit();
+		}
+
+		/// <summary>
+		/// Verifies that a user can click on a button that can be located using its ID 
+		/// </summary>
+		[Fact]
+		public void CanClickOnButtonUsingId()
+		{
+			InitializeChromeBrowser();
+
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+			driver.FindElement(By.Id("idExample")).Click();
+
+			string expected = "https://ultimateqa.com/button-success";
+
+			Assert.Equal(expected, driver.Url);
+
+			driver.Quit();
+		}
+
+		/// <summary>
+		/// This test is similar to CanClickButtonUsingId except that this test 
+		/// verifies that a web element containing the text "Button success" exists
+		/// </summary>
+		[Fact]
+		public void CanClickOnButtonsUsingIDButtonSuccess()
+		{
+			InitializeChromeBrowser();
+
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+			driver.FindElement(By.Id("idExample")).Click();
+
+			string expected = "Button success";
+
+			Assert.True(driver.FindElement(By.CssSelector("h1")).Displayed);
+			Assert.Equal(expected, driver.FindElement(By.CssSelector("h1")).Text);
+
+			driver.Quit();
+		}
+
 		///// <summary>
 		///// 
 		///// </summary>
