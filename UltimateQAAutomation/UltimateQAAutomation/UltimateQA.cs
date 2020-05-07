@@ -2,12 +2,15 @@ using System;
 using Xunit;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace UltimateQAAutomation
 {
 	public class UltimateQA
 	{
 		IWebDriver driver;
+		IJavaScriptExecutor jexe;
 
 		const string ultimateQAURL = "https://ultimateqa.com/automation/";
 
@@ -32,6 +35,7 @@ namespace UltimateQAAutomation
 			Assert.Equal(ultimateQAURL, driver.Url);
 
 			driver.Quit();
+			driver.Dispose();
 		}
 
 		/// <summary>
@@ -49,6 +53,7 @@ namespace UltimateQAAutomation
 			Assert.Equal(expected, driver.Url);
 
 			driver.Quit();
+			driver.Dispose();
 		}
 
 		/// <summary>
@@ -66,6 +71,7 @@ namespace UltimateQAAutomation
 			Assert.Equal(expected, driver.Url);
 
 			driver.Quit();
+			driver.Dispose();
 		}
 
 		/// <summary>
@@ -83,6 +89,7 @@ namespace UltimateQAAutomation
 			Assert.Equal(expected, driver.Url);
 
 			driver.Quit();
+			driver.Dispose();
 		}
 
 		/// <summary>
@@ -100,6 +107,7 @@ namespace UltimateQAAutomation
 			Assert.Equal(expected, driver.Url);
 
 			driver.Quit();
+			driver.Dispose();
 		}
 
 		/// <summary>
@@ -117,6 +125,7 @@ namespace UltimateQAAutomation
 			Assert.Equal(expected, driver.Url);
 
 			driver.Quit();
+			driver.Dispose();
 		}
 
 		/// <summary>
@@ -134,6 +143,7 @@ namespace UltimateQAAutomation
 			Assert.Equal(expected, driver.Url);
 
 			driver.Quit();
+			driver.Dispose();
 		}
 
 		/// <summary>
@@ -151,6 +161,7 @@ namespace UltimateQAAutomation
 			Assert.Equal(expected, driver.Url);
 
 			driver.Quit();
+			driver.Dispose();
 		}
 
 		/// <summary>
@@ -169,6 +180,7 @@ namespace UltimateQAAutomation
 			Assert.Equal(expected, driver.Url);
 
 			driver.Quit();
+			driver.Dispose();
 		}
 
 		/// <summary>
@@ -189,6 +201,7 @@ namespace UltimateQAAutomation
 			Assert.Equal(expected, driver.Url);
 
 			driver.Quit();
+			driver.Dispose();
 		}
 
 		/// <summary>
@@ -211,6 +224,7 @@ namespace UltimateQAAutomation
 			Assert.Equal(expected, driver.FindElement(By.CssSelector("h1")).Text);
 
 			driver.Quit();
+			driver.Dispose();
 		}
 
 		/// <summary>
@@ -232,6 +246,7 @@ namespace UltimateQAAutomation
 			Assert.Equal(expected, driver.FindElement(By.CssSelector("h1")).Text);
 
 			driver.Quit();
+			driver.Dispose();
 		}
 
 		/// <summary>
@@ -253,6 +268,35 @@ namespace UltimateQAAutomation
 			Assert.Equal(expected, driver.FindElement(By.CssSelector("h1")).Text);
 
 			driver.Quit();
+			driver.Dispose();
+		}
+
+		/// <summary>
+		/// Verifies that a user can click on a button that is inside the green div
+		/// </summary>
+		[Fact]
+		public void CanClickOnButtonInsideGreenDiv()
+		{
+			InitializeChromeBrowser();
+
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+
+			jexe = (IJavaScriptExecutor)driver;
+
+			jexe.ExecuteScript("window.scrollBy(0, 500)");
+			driver.FindElement(By.XPath("//div//a[text()='Click Me']")).Click();		
+
+			string expected = "Button success";
+
+			WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
+
+			Assert.True(wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("h1"))).Displayed);
+			Assert.Equal(expected, driver.FindElement(By.CssSelector("h1")).Text);
+
+			driver.Quit();
+			driver.Dispose();
 		}
 
 		///// <summary>
