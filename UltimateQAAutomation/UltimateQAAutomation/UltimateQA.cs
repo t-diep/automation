@@ -4,6 +4,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace UltimateQAAutomation
 {
@@ -292,22 +294,30 @@ namespace UltimateQAAutomation
 
 			WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
 
-			Assert.True(wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("h1"))).Displayed);
+			Assert.True(wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("h1"))).Displayed);
 			Assert.Equal(expected, driver.FindElement(By.CssSelector("h1")).Text);
 
 			driver.Quit();
 			driver.Dispose();
 		}
 
-		///// <summary>
-		///// 
-		///// </summary>
-		//[Fact]
-		//public void VerifyNumberOfButtons()
-		//{
-		//	InitializeChromeBrowser();
+		/// <summary>
+		/// Verifies that a user can select a radio button
+		/// </summary>
+		[Fact]
+		public void CanClickOnRadioButton()
+		{
+			InitializeChromeBrowser();
 
-		//	driver.Quit();
-		//}
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+
+			jexe = (IJavaScriptExecutor)driver;
+
+			jexe.ExecuteScript("window.scrollBy(0, 500)");
+
+			driver.Quit();
+		}
 	}
 }
