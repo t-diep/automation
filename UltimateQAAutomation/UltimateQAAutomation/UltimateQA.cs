@@ -302,10 +302,10 @@ namespace UltimateQAAutomation
 		}
 
 		/// <summary>
-		/// Verifies that a user can select a radio button
+		/// Verifies that a user can select the male radio button
 		/// </summary>
 		[Fact]
-		public void CanClickOnRadioButton()
+		public void CanClickOnMaleRadioButton()
 		{
 			InitializeChromeBrowser();
 
@@ -316,6 +316,39 @@ namespace UltimateQAAutomation
 			jexe = (IJavaScriptExecutor)driver;
 
 			jexe.ExecuteScript("window.scrollBy(0, 500)");
+
+			var radioButtons = driver.FindElements(By.XPath("//input[@type='radio']"));
+
+			radioButtons[0].Click();
+			Assert.True(radioButtons[0].Selected);
+
+			driver.Quit();
+		}
+
+		/// <summary>
+		/// Verifies that a user can click on the clickable icon (the arrow) 
+		/// </summary>
+		[Fact]
+		public void CanClickOnClickableIcon()
+		{
+			InitializeChromeBrowser();
+
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+
+			jexe = (IJavaScriptExecutor)driver;
+
+			jexe.ExecuteScript("window.scrollBy(0, 500)");
+
+			driver.FindElement(By.XPath("//div//a[@href='/link-success/']")).Click();
+
+			string expected = "Link success";
+
+			WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
+
+			Assert.True(wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("h1"))).Displayed);
+			Assert.Equal(expected, driver.FindElement(By.CssSelector("h1")).Text);
 
 			driver.Quit();
 		}
