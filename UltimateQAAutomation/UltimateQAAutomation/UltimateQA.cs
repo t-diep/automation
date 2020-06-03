@@ -377,6 +377,32 @@ namespace UltimateQAAutomation
 		}
 
 		/// <summary>
+		/// Verifies that the first checkbox can be clicked
+		/// </summary>
+		[Fact]
+		public void CanClickOnBikeCheckbox()
+		{
+			InitializeChromeBrowser();
+
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+
+			jexe = (IJavaScriptExecutor)driver;
+
+			jexe.ExecuteScript("window.scrollBy(0, 500)");
+
+			var checkboxes = driver.FindElements(By.XPath("//input[@type='checkbox']"));
+
+			checkboxes[0].Click();
+
+			Assert.True(checkboxes[0].Selected);
+			Assert.Equal("Bike", checkboxes[0].GetAttribute("value"));
+
+			driver.Quit();
+		}
+
+		/// <summary>
 		/// Verifies that a user can click on the clickable icon (the arrow) 
 		/// </summary>
 		[Fact]
