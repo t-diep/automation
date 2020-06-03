@@ -377,7 +377,7 @@ namespace UltimateQAAutomation
 		}
 
 		/// <summary>
-		/// Verifies that the first checkbox can be clicked
+		/// Verifies that the bike checkbox can be selected
 		/// </summary>
 		[Fact]
 		public void CanClickOnBikeCheckbox()
@@ -398,6 +398,32 @@ namespace UltimateQAAutomation
 
 			Assert.True(checkboxes[0].Selected);
 			Assert.Equal("Bike", checkboxes[0].GetAttribute("value"));
+
+			driver.Quit();
+		}
+
+		/// <summary>
+		/// Verifies that the car checkbox can be selected
+		/// </summary>
+		[Fact]
+		public void CanClickOnCarCheckbox()
+		{
+			InitializeChromeBrowser();
+
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+
+			jexe = (IJavaScriptExecutor)driver;
+
+			jexe.ExecuteScript("window.scrollBy(0, 500)");
+
+			var checkboxes = driver.FindElements(By.XPath("//input[@type='checkbox']"));
+
+			checkboxes[1].Click();
+
+			Assert.True(checkboxes[1].Selected);
+			Assert.Equal("Car", checkboxes[1].GetAttribute("value"));
 
 			driver.Quit();
 		}
