@@ -321,6 +321,32 @@ namespace UltimateQAAutomation
 
 			radioButtons[0].Click();
 			Assert.True(radioButtons[0].Selected);
+			Assert.Equal("male", radioButtons[0].GetAttribute("value"));
+
+			driver.Quit();
+		}
+
+		/// <summary>
+		/// Verifies that a user can select the male radio button
+		/// </summary>
+		[Fact]
+		public void CanClickOnFemaleRadioButton()
+		{
+			InitializeChromeBrowser();
+
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+
+			jexe = (IJavaScriptExecutor)driver;
+
+			jexe.ExecuteScript("window.scrollBy(0, 500)");
+
+			var radioButtons = driver.FindElements(By.XPath("//input[@type='radio']"));
+
+			radioButtons[1].Click();
+			Assert.True(radioButtons[1].Selected);
+			Assert.Equal("female", radioButtons[1].GetAttribute("value"));
 
 			driver.Quit();
 		}
