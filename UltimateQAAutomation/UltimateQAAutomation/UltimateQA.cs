@@ -352,6 +352,31 @@ namespace UltimateQAAutomation
 		}
 
 		/// <summary>
+		/// Verifies that a user can select the male radio button
+		/// </summary>
+		[Fact]
+		public void CanClickOnOtherRadioButton()
+		{
+			InitializeChromeBrowser();
+
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+
+			jexe = (IJavaScriptExecutor)driver;
+
+			jexe.ExecuteScript("window.scrollBy(0, 500)");
+
+			var radioButtons = driver.FindElements(By.XPath("//input[@type='radio']"));
+
+			radioButtons[2].Click();
+			Assert.True(radioButtons[2].Selected);
+			Assert.Equal("other", radioButtons[2].GetAttribute("value"));
+
+			driver.Quit();
+		}
+
+		/// <summary>
 		/// Verifies that a user can click on the clickable icon (the arrow) 
 		/// </summary>
 		[Fact]
