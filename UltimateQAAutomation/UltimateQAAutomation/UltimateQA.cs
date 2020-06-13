@@ -455,5 +455,32 @@ namespace UltimateQAAutomation
 
 			driver.Quit();
 		}
+
+		/// <summary>
+		/// Verifies that the car checkbox can be selected
+		/// </summary>
+		[Fact]
+		public void CanClickOnDropdownItems()
+		{
+			InitializeChromeBrowser();
+
+			driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+			driver.FindElement(By.PartialLinkText("Interactions ")).Click();
+
+			jexe = (IJavaScriptExecutor)driver;
+
+			jexe.ExecuteScript("window.scrollBy(0, 500)");
+
+			var selectOptions = driver.FindElements(By.CssSelector("select > option")).ToList();
+
+			foreach(var option in selectOptions)
+			{
+				option.Click();
+				Assert.True(option.Selected);
+			}
+
+			driver.Quit();
+		}
 	}
 }
